@@ -98,7 +98,18 @@ public class GlobalExceptionHandler {
                 .status(INTERNAL_SERVER_ERROR)
                 .body(
                         ExceptionResponse.builder()
-                                .businessErrorDescription("Internal Error, please contact the administrator.")
+                                .error(exp.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(OperationNotPermittedException.class)
+    public ResponseEntity<ExceptionResponse> handleException(OperationNotPermittedException exp){
+        exp.printStackTrace();
+        return ResponseEntity
+                .status(BAD_REQUEST)
+                .body(
+                        ExceptionResponse.builder()
                                 .error(exp.getMessage())
                                 .build()
                 );

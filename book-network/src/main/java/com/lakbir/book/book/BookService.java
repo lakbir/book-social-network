@@ -6,7 +6,6 @@ import com.lakbir.book.exception.OperationNotPermittedException;
 import com.lakbir.book.file.FileStorageService;
 import com.lakbir.book.history.BookTransactionHistory;
 import com.lakbir.book.history.BookTransactionHistoryRepository;
-import jakarta.mail.internet.MimeBodyPart;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,7 +16,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 

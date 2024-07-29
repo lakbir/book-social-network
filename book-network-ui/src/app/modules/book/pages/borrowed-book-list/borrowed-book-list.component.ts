@@ -7,7 +7,6 @@ import {FeedbackRequest} from "../../../../services/models/feedback-request";
 import {FormsModule} from "@angular/forms";
 import {RatingComponent} from "../../components/rating/rating.component";
 import {RouterLink} from "@angular/router";
-import {findAllBorrowedBooks} from "../../../../services/fn/book/find-all-borrowed-books";
 import {FeedbackService} from "../../../../services/services/feedback.service";
 
 @Component({

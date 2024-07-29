@@ -30,7 +30,7 @@ public class BookService {
     private final BookRepository bookRepository;
     private final BookTransactionHistoryRepository historyRepository;
     private final BookMapper bookMapper;
-    private FileStorageService fileStorageService;
+    private final FileStorageService fileStorageService;
 
     public Integer save(BookRequest request, Authentication connectedUser) {
         User user = ((User) connectedUser.getPrincipal());
@@ -53,7 +53,6 @@ public class BookService {
         List<BookResponse> bookResponses = books.stream()
                 .map(bookMapper::toBookResponse)
                 .toList();
-
         return new PageResponse<>(
                 bookResponses,
                 books.getNumber(),
@@ -150,7 +149,7 @@ public class BookService {
             throw new OperationNotPermittedException("The requested book cannot be borrowed since it is archived or not shareable");
         }
         User user = ((User) connectedUser.getPrincipal());
-        if(!Objects.equals(book.getOwner().getId(), user.getId())) {
+        if(Objects.equals(book.getOwner().getId(), user.getId())) {
             throw new OperationNotPermittedException("You cannot borrow your own book");
         }
 
@@ -176,7 +175,7 @@ public class BookService {
             throw new OperationNotPermittedException("The requested book cannot be borrowed since it is archived or not shareable");
         }
         User user = ((User) connectedUser.getPrincipal());
-        if(!Objects.equals(book.getOwner().getId(), user.getId())) {
+        if(Objects.equals(book.getOwner().getId(), user.getId())) {
             throw new OperationNotPermittedException("You cannot borrow or return your own book");
         }
 
@@ -194,7 +193,7 @@ public class BookService {
         }
         User user = ((User) connectedUser.getPrincipal());
         if(!Objects.equals(book.getOwner().getId(), user.getId())) {
-            throw new OperationNotPermittedException("You cannot approve borrow or return your own book");
+            throw new OperationNotPermittedException("You cannot return a book that you do not owen");
         }
 
         BookTransactionHistory bookTransactionHistory = historyRepository.findByBookIdAndOwnerId(bookId, user.getId())
